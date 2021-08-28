@@ -66,6 +66,10 @@ class Treblle {
     public function handle($request, Closure $next) {
         
         $response = $next($request);
+
+        if(!str_contains(php_sapi_name(), 'fcgi')) {
+            $this->terminate($request, $response);
+        }
         
         return $response;
     }
